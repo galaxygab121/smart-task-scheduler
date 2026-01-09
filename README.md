@@ -1,47 +1,59 @@
-# Smart Task Scheduler
+# Smart Task Scheduler (Java)
 
-A Java CLI simulation comparing scheduling strategies:
-- Priority scheduling (higher priority first)
-- Earliest Deadline First (EDF)
+A Java-based task scheduling simulator comparing **Priority**, **Earliest Deadline First (EDF)**, and **Shortest Job First (SJF)** using:
+- ✅ CSV task input
+- ✅ Gantt-style terminal visualization with deadline indicators
+- ✅ Benchmarking + multi-seed performance study (mean ± stddev)
 
-Compared Priority, EDF, and SJF scheduling strategies and evaluated average wait time, turnaround time, and deadline-miss rate; observed SJF minimizing average wait time and reducing missed deadlines on benchmark datasets.
+## Features
+- Implements scheduling strategies: **Priority**, **EDF**, **SJF**
+- Prints per-task metrics (start, finish, wait, turnaround)
+- Gantt timeline output:
+  - `[X ]` = finishes on-time
+  - `[X!]` = finishes after deadline
+- Benchmark framework:
+  - Avg wait time
+  - Avg turnaround time
+  - Deadline misses + miss rate (%)
+  - Multi-seed study with mean ± stddev (Welford’s algorithm)
+
+## Project Structure
+src/
+model/ Task model
+scheduler/ Priority, EDF, SJF implementations
+metrics/ Metric calculations
+io/ CSV loader
+simulation/ Simulator, Gantt printer, benchmark runner, task generator
+data/
+tasks.csv Example input
 
 ## Run
-From the project root:
 
+### Compile
 ```bash
 javac -d out $(find src -name "*.java")
-java -cp out Main
+Run with CSV input
+java -cp out Main data/tasks.csv
+Run benchmark study (multi-seed)
+java -cp out Main --benchmark 1000 --seeds 20
+Example Output (Gantt)
+Timeline: [F ][B ][B ][E ][A!][A!][A!][D!][D!][C!][C!][C!][C!]
+Time:     0   1       3   4           7       9               13
+Legend:
+  A -> (p=3, d=6, r=3)  MISSED
+  ...
+Results Summary
+A multi-seed benchmark study (20 trials × 1000 tasks) shows that SJF consistently minimizes average wait/turnaround time and reduces missed deadlines under the tested parameters, highlighting classic scheduling tradeoffs between throughput and deadline guarantees.
 
+Save.
 
 ---
 
-# 4) Run it in VS Code Terminal
+# 2) Commit + push README improvements
 
-Open terminal in the project root:
+Run:
 
-### macOS/Linux
 ```bash
-javac -d out $(find src -name "*.java")
-java -cp out Main
-
-javac -d out (Get-ChildItem -Recurse -Filter *.java | % FullName)
-java -cp out Main
-
-## Results
-
-We evaluated three scheduling algorithms — Priority, Earliest Deadline First (EDF), and Shortest Job First (SJF) — using randomized workloads of 1000 tasks across 20 independent trials.
-
-**Metrics evaluated:**
-- Average wait time
-- Average turnaround time
-- Number of missed deadlines
-- Miss rate (%)
-
-**Summary of findings:**
-- SJF consistently minimized average wait and turnaround time.
-- SJF reduced missed deadlines by ~12% compared to Priority and EDF.
-- Priority and EDF exhibited similar performance under the tested parameters.
-- Variance analysis highlighted tradeoffs between throughput optimization and deadline guarantees.
-
-These results align with classical scheduling theory and demonstrate the impact of algorithm choice on system-level performance.
+git add README.md
+git commit -m "docs: polish README with usage and benchmark details"
+git push

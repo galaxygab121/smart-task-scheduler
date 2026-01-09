@@ -1,0 +1,10 @@
+=== Benchmark Study ===
+Tasks per trial: 1000
+Trials (seeds):  20
+Params: maxPriority=10, maxRuntime=8, maxSlack=10
+
+Algorithm                    |           Avg Wait |         Avg Turnaround |       Missed Deadlines |        Miss Rate
+-----------------------------+--------------------+------------------------+------------------------+-----------------
+Priority (higher first)      |  2244.03 ± 41.71  |    2248.53 ± 41.77    |     995.50 ± 2.35     |   99.55 ± 0.24  %
+Earliest Deadline First (EDF) |  2228.80 ± 38.85  |    2233.30 ± 38.91    |     997.55 ± 1.47     |   99.76 ± 0.15  %
+Shortest Job First (SJF)     |  1590.65 ± 38.51  |    1595.15 ± 38.58    |     873.00 ± 10.30    |   87.30 ± 1.03  %

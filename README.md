@@ -50,7 +50,7 @@ results/
 ## Build and Run
 
 Compile the project:
-
+```bash
 javac -d out $(find src -name "*.java")
 
 Run with CSV input:
@@ -60,7 +60,7 @@ java -cp out Main data/tasks.csv
 Run benchmark study with multiple seeds:
 
 java -cp out Main --benchmark 1000 --seeds 20
-
+```
 ---
 
 ## Visual Output (Gantt Chart)
